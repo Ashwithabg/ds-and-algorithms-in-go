@@ -7,6 +7,8 @@ func main() {
 	fmt.Println(search(numbers, 6))
 	fmt.Println(search(numbers, 9))
 	fmt.Println(search(numbers, 19))
+
+	fmt.Println(searchRecursion(numbers, 9, 0))
 }
 
 func search(numbers []int, number int) int {
@@ -17,4 +19,16 @@ func search(numbers []int, number int) int {
 	}
 
 	return -1
+}
+
+func searchRecursion(numbers []int, number int, currentIndex int) int {
+	if numbers[currentIndex] == number {
+		return currentIndex
+	}
+
+	if currentIndex == len(numbers)-1 {
+		return -1
+	}
+
+	return searchRecursion(numbers, number, currentIndex+1)
 }
