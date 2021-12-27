@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	rootNode := utils.GetRootNode()
+	rootNode := utils.GetAlphaRootNode()
 	fmt.Println("preorder")
 	preorder(rootNode)
 	fmt.Println()

@@ -1,12 +1,12 @@
 package utils
 
 type Node struct {
-	Value     string
+	Value     interface{}
 	LeftNode  *Node
 	RightNode *Node
 }
 
-func NewNode(value string) *Node{
+func NewNode(value interface{}) *Node{
 	return &Node{Value: value}
 }
 
@@ -26,6 +26,6 @@ func (n *Node) SetRight(node *Node) {
 	n.RightNode = node
 }
 
-func (n *Node) GetValue() string {
+func (n *Node) GetValue() interface{} {
 	return n.Value
 }
