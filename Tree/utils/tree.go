@@ -8,14 +8,14 @@ func GetRootNode() *Node {
 	eNode := NewNode("E")
 	fNode := NewNode("F")
 	gNode := NewNode("G")
-	rootNode := NewNode("root")
+	hNode := NewNode("H")
 
-	rootNode.SetLeft(aNode)
-	rootNode.SetRight(bNode)
-	bNode.SetLeft(cNode)
-	bNode.SetRight(dNode)
-	dNode.SetLeft(eNode)
-	cNode.SetLeft(fNode)
-	cNode.SetRight(gNode)
-	return rootNode
+	aNode.SetLeft(bNode)
+	aNode.SetRight(cNode)
+	bNode.SetLeft(dNode)
+	bNode.SetRight(eNode)
+	dNode.SetLeft(fNode)
+	cNode.SetLeft(gNode)
+	cNode.SetRight(hNode)
+	return aNode
 }
