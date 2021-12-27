@@ -10,6 +10,7 @@ func main() {
 	counter := 0
 	traverse(root, &counter)
 	fmt.Println(counter)
+	fmt.Println(traverseBFS(root))
 }
 
 func traverse(root *utils.Node, counter *int) {
@@ -20,4 +21,21 @@ func traverse(root *utils.Node, counter *int) {
 
 	traverse(root.GetRightNode(), counter)
 	traverse(root.GetLeftNode(), counter)
+}
+
+func traverseBFS(root *utils.Node) int {
+	counter := 0
+	queue := utils.NewQueue()
+	queue.Enqueue(root)
+
+	for !queue.IsEmpty() {
+		node := queue.Dequeue()
+		if node != nil {
+			counter++
+			queue.Enqueue(node.GetLeftNode())
+			queue.Enqueue(node.GetRightNode())
+		}
+	}
+
+	return counter
 }
