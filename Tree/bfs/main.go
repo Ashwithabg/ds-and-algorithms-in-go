@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	rootNode := constuctTree()
+	rootNode := utils.GetRootNode()
 
 	findBFS(rootNode)
 }
@@ -26,20 +26,4 @@ func findBFS(root *utils.Node) {
 			queue.Enqueue(n.GetRightNode())
 		}
 	}
-}
-
-func constuctTree() *utils.Node {
-	aNode := utils.NewNode("A")
-	bNode := utils.NewNode("B")
-	cNode := utils.NewNode("C")
-	dNode := utils.NewNode("D")
-	eNode := utils.NewNode("E")
-	rootNode := utils.NewNode("root")
-
-	rootNode.SetLeft(aNode)
-	rootNode.SetRight(bNode)
-	bNode.SetLeft(cNode)
-	bNode.SetRight(dNode)
-	dNode.SetLeft(eNode)
-	return rootNode
 }
