@@ -6,11 +6,16 @@ import (
 )
 
 func main() {
-	fmt.Println(minBFS(utils.GetNumbericRootNode()))
+	root := utils.GetNumbericRootNode()
+	fmt.Println(minBFS(root))
 
-	minValue := 9999999
-	min(utils.GetNumbericRootNode(), &minValue)
+	minValue := root.Value.(int)
+	min(root, &minValue)
 	fmt.Println(minValue)
+
+	minValue1 := root.Value.(int)
+	minBST(root, &minValue1)
+	fmt.Println(minValue1)
 }
 
 func minBFS(root *utils.Node) int {
@@ -40,9 +45,20 @@ func min(root *utils.Node, i *int) {
 	}
 
 	if root.Value.(int) < *i {
-		 *i = root.Value.(int)
+		*i = root.Value.(int)
 	}
 
 	min(root.GetLeftNode(), i)
 	min(root.GetRightNode(), i)
+}
+
+func minBST(root *utils.Node, minValue *int) {
+	if root == nil {
+		return
+	}
+
+	if root.Value.(int) < *minValue {
+		*minValue = root.Value.(int)
+	}
+	min(root.GetLeftNode(), minValue)
 }
