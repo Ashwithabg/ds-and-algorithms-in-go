@@ -5,6 +5,10 @@ import (
 	"fmt"
 )
 
+/*
+ Compute the number of nodes in a tree.
+*/
+
 func main() {
 	root := utils.GetNumbericRootNode()
 	counter := 0

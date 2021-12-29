@@ -5,6 +5,12 @@ import (
 	"fmt"
 )
 
+/*
+ Given a binary search tree, print out
+ its data elements in increasing
+ sorted order.
+*/
+
 func main() {
 	root := utils.GetNumbericRootNode()
 	printTree(root)
