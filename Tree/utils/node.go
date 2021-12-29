@@ -29,3 +29,7 @@ func (n *Node) SetRight(node *Node) {
 func (n *Node) GetValue() interface{} {
 	return n.Value
 }
+
+func (n Node) IsLeafNode() bool {
+	return n.LeftNode == nil && n.RightNode == nil
+}
