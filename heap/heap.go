@@ -15,7 +15,7 @@ func NewHeap(arr []int) *Heap {
 	}
 }
 
-func (h *Heap) getElement(index int) int {
+func (h *Heap) GetElement(index int) int {
 	if index > len(h.data) || index < 0 {
 		return -1
 	}
@@ -48,7 +48,7 @@ func (h *Heap) getRightChildIndex(index int) int {
 	return childIndex
 }
 
-func (h *Heap) getParentIndex(index int) int {
+func (h *Heap) GetParentIndex(index int) int {
 	if index > len(h.data) || index < 0 {
 		return -1
 	}
@@ -61,7 +61,7 @@ func (h *Heap) Swap(index1, index2 int) {
 	h.data[index2] = temp
 }
 
-func (h *Heap) getCount() int {
+func (h *Heap) GetCount() int {
 	return len(h.data)
 }
 
@@ -81,7 +81,7 @@ func (h *Heap) siftDown(index int) {
 	smallerIndex := -1
 
 	if leftIndex != -1 && rightIndex != -1 {
-		if h.getElement(leftIndex) <= h.getElement(rightIndex) {
+		if h.GetElement(leftIndex) <= h.GetElement(rightIndex) {
 			smallerIndex = leftIndex
 		} else {
 			smallerIndex = rightIndex
@@ -95,7 +95,7 @@ func (h *Heap) siftDown(index int) {
 		return
 	}
 
-	if h.getElement(smallerIndex) < h.getElement(index) {
+	if h.GetElement(smallerIndex) < h.GetElement(index) {
 		h.Swap(smallerIndex, index)
 		h.siftDown(smallerIndex)
 	}
@@ -103,8 +103,8 @@ func (h *Heap) siftDown(index int) {
 
 //min Heap
 func (h *Heap) siftUp(index int) {
-	parentIndex := h.getParentIndex(index)
-	if parentIndex != -1 && h.getElement(index) < h.getElement(parentIndex) {
+	parentIndex := h.GetParentIndex(index)
+	if parentIndex != -1 && h.GetElement(index) < h.GetElement(parentIndex) {
 		h.Swap(index, parentIndex)
 		h.siftUp(parentIndex)
 	}
@@ -174,11 +174,11 @@ func (h *Heap) PercolateDown(index, endIndex int) {
 	leftChildIndex := h.findLeftChildIndex(index, endIndex)
 	rightChildIndex := h.findRightChildIndex(index, endIndex)
 
-	if leftChildIndex != -1 && h.getElement(leftChildIndex) > h.getElement(index) {
+	if leftChildIndex != -1 && h.GetElement(leftChildIndex) > h.GetElement(index) {
 		h.Swap(leftChildIndex, index)
 		h.PercolateDown(leftChildIndex, endIndex)
 	}
-	if rightChildIndex != -1 && h.getElement(rightChildIndex) > h.getElement(index) {
+	if rightChildIndex != -1 && h.GetElement(rightChildIndex) > h.GetElement(index) {
 		h.Swap(rightChildIndex, index)
 		h.PercolateDown(rightChildIndex, endIndex)
 	}
