@@ -42,12 +42,12 @@ func (h *Heap) getLeftChildIndex(index int) int {
 }
 
 func (h *Heap) getRightChildIndex(index int) int {
-	if index > len(h.data) || index < 0 {
+	if index >= len(h.data) || index < 0 {
 		return -1
 	}
 
 	childIndex := 2*index + 2
-	if childIndex > len(h.data) || childIndex < 0 {
+	if childIndex >= len(h.data) || childIndex < 0 {
 		return -1
 	}
 	return childIndex
@@ -126,11 +126,7 @@ func (h *Heap) Insert(value int) error {
 	return nil
 }
 
-func (h *Heap) Update(value int, index int) {
-	h.data[index] = value
-}
-
-func (h *Heap) remove() (int, error) {
+func (h *Heap) Remove() (int, error) {
 	if h.isEmpty() {
 		return rootIndex, fmt.Errorf("heap is empty")
 	}

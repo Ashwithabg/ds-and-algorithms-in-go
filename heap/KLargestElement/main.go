@@ -12,15 +12,15 @@ func main() {
 }
 
 func findLargestElement(data []int, count int) {
-	minHeap := heap.NewHeap([]int{}, 5)
+	minHeap := heap.NewHeap(make([]int, 0, 5), 5)
 
 	for _, value := range data {
 		if minHeap.GetCount() == 0 || minHeap.GetCount() < count {
 			minHeap.Insert(value)
 		} else {
 			if minHeap.GetElement(0) < value {
-				minHeap.Update(value, 0)
-				minHeap.SiftDown(0)
+				minHeap.Remove()
+				minHeap.Insert(value)
 			}
 		}
 	}
