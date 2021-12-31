@@ -1,4 +1,4 @@
-package main
+package heap
 
 import "fmt"
 
@@ -6,10 +6,16 @@ const MaxSize = 40
 const rootIndex = 0
 
 type Heap struct {
-	data []interface{}
+	data []int
 }
 
-func (h *Heap) getElement(index int) interface{} {
+func NewHeap(arr []int) *Heap {
+	return &Heap{
+		data: arr,
+	}
+}
+
+func (h *Heap) getElement(index int) int {
 	if index > len(h.data) || index < 0 {
 		return -1
 	}
@@ -49,7 +55,7 @@ func (h *Heap) getParentIndex(index int) int {
 	return (index - 1) / 2
 }
 
-func (h *Heap) swap(index1, index2 int) {
+func (h *Heap) Swap(index1, index2 int) {
 	temp := h.data[index1]
 	h.data[index1] = h.data[index2]
 	h.data[index2] = temp
@@ -75,7 +81,7 @@ func (h *Heap) siftDown(index int) {
 	smallerIndex := -1
 
 	if leftIndex != -1 && rightIndex != -1 {
-		if h.getElement(leftIndex).(int) <= h.getElement(rightIndex).(int) {
+		if h.getElement(leftIndex) <= h.getElement(rightIndex) {
 			smallerIndex = leftIndex
 		} else {
 			smallerIndex = rightIndex
@@ -89,8 +95,8 @@ func (h *Heap) siftDown(index int) {
 		return
 	}
 
-	if h.getElement(smallerIndex).(int) < h.getElement(index).(int) {
-		h.swap(smallerIndex, index)
+	if h.getElement(smallerIndex) < h.getElement(index) {
+		h.Swap(smallerIndex, index)
 		h.siftDown(smallerIndex)
 	}
 }
@@ -98,8 +104,8 @@ func (h *Heap) siftDown(index int) {
 //min Heap
 func (h *Heap) siftUp(index int) {
 	parentIndex := h.getParentIndex(index)
-	if parentIndex != -1 && h.getElement(index).(int) < h.getElement(parentIndex).(int) {
-		h.swap(index, parentIndex)
+	if parentIndex != -1 && h.getElement(index) < h.getElement(parentIndex) {
+		h.Swap(index, parentIndex)
 		h.siftUp(parentIndex)
 	}
 }
@@ -122,11 +128,11 @@ func (h *Heap) remove() (int, error) {
 	highPriorityElement := h.data[rootIndex]
 	lastIndex := len(h.data) - 1
 
-	h.swap(rootIndex, lastIndex)
+	h.Swap(rootIndex, lastIndex)
 	h.data = h.data[:lastIndex]
 	h.siftDown(rootIndex)
 
-	return highPriorityElement.(int), nil
+	return highPriorityElement, nil
 }
 
 //maxHeap
@@ -164,24 +170,28 @@ func (h *Heap) findParentIndex(index, endIndex int) int {
 	return h.findIndex(index, endIndex, indexCalculator)
 }
 
-func (h *Heap) percolateDown(index, endIndex int) {
+func (h *Heap) PercolateDown(index, endIndex int) {
 	leftChildIndex := h.findLeftChildIndex(index, endIndex)
 	rightChildIndex := h.findRightChildIndex(index, endIndex)
 
-	if leftChildIndex != -1 && h.getElement(leftChildIndex).(int) > h.getElement(index).(int) {
-		h.swap(leftChildIndex, index)
-		h.percolateDown(leftChildIndex, endIndex)
+	if leftChildIndex != -1 && h.getElement(leftChildIndex) > h.getElement(index) {
+		h.Swap(leftChildIndex, index)
+		h.PercolateDown(leftChildIndex, endIndex)
 	}
-	if rightChildIndex != -1 && h.getElement(rightChildIndex).(int) > h.getElement(index).(int) {
-		h.swap(rightChildIndex, index)
-		h.percolateDown(rightChildIndex, endIndex)
+	if rightChildIndex != -1 && h.getElement(rightChildIndex) > h.getElement(index) {
+		h.Swap(rightChildIndex, index)
+		h.PercolateDown(rightChildIndex, endIndex)
 	}
 }
 
 func (h *Heap) Heapify(endIndex int) {
 	parentIndex := h.findParentIndex(endIndex, endIndex)
 	for parentIndex >= 0 {
-		h.percolateDown(parentIndex, endIndex)
+		h.PercolateDown(parentIndex, endIndex)
 		parentIndex--
 	}
+}
+
+func (h *Heap) Data() []int {
+	return h.data
 }
