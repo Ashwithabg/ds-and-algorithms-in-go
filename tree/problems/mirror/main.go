@@ -1,7 +1,7 @@
 package main
 
 import (
-	"algos/Tree/utils"
+	"algos/tree/utils"
 	"fmt"
 )
 

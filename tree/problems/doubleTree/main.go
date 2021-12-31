@@ -1,6 +1,6 @@
 package main
 
-import "algos/Tree/utils"
+import "algos/tree/utils"
 
 /*
  For each node in a binary search tree,
