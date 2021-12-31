@@ -2,21 +2,26 @@ package heap
 
 import "fmt"
 
-const MaxSize = 40
+const MaxCapacity = 40
 const rootIndex = 0
 
 type Heap struct {
-	data []int
+	capacity int
+	data     []int
 }
 
-func NewHeap(arr []int) *Heap {
+func NewHeap(arr []int, capacity int) *Heap {
+	if capacity == 0 {
+		capacity = MaxCapacity
+	}
 	return &Heap{
-		data: arr,
+		capacity: capacity,
+		data:     arr,
 	}
 }
 
 func (h *Heap) GetElement(index int) int {
-	if index > len(h.data) || index < 0 {
+	if index >= len(h.data) || index < 0 {
 		return -1
 	}
 
@@ -24,12 +29,12 @@ func (h *Heap) GetElement(index int) int {
 }
 
 func (h *Heap) getLeftChildIndex(index int) int {
-	if index > len(h.data) || index < 0 {
+	if index >= len(h.data) || index < 0 {
 		return -1
 	}
 
 	childIndex := 2*index + 1
-	if childIndex > len(h.data) || childIndex < 0 {
+	if childIndex >= len(h.data) || childIndex < 0 {
 		return -1
 	}
 
@@ -70,11 +75,11 @@ func (h *Heap) isEmpty() bool {
 }
 
 func (h *Heap) isFull() bool {
-	return len(h.data) == cap(h.data)
+	return len(h.data) == h.capacity
 }
 
 //min Heap
-func (h *Heap) siftDown(index int) {
+func (h *Heap) SiftDown(index int) {
 	leftIndex := h.getLeftChildIndex(index)
 	rightIndex := h.getRightChildIndex(index)
 
@@ -97,7 +102,7 @@ func (h *Heap) siftDown(index int) {
 
 	if h.GetElement(smallerIndex) < h.GetElement(index) {
 		h.Swap(smallerIndex, index)
-		h.siftDown(smallerIndex)
+		h.SiftDown(smallerIndex)
 	}
 }
 
@@ -110,7 +115,7 @@ func (h *Heap) siftUp(index int) {
 	}
 }
 
-func (h *Heap) insert(value int) error {
+func (h *Heap) Insert(value int) error {
 	if h.isFull() {
 		return fmt.Errorf("heap is full")
 	}
@@ -119,6 +124,10 @@ func (h *Heap) insert(value int) error {
 	h.siftUp(count)
 
 	return nil
+}
+
+func (h *Heap) Update(value int, index int) {
+	h.data[index] = value
 }
 
 func (h *Heap) remove() (int, error) {
@@ -130,7 +139,7 @@ func (h *Heap) remove() (int, error) {
 
 	h.Swap(rootIndex, lastIndex)
 	h.data = h.data[:lastIndex]
-	h.siftDown(rootIndex)
+	h.SiftDown(rootIndex)
 
 	return highPriorityElement, nil
 }
