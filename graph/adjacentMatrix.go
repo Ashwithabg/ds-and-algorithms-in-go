@@ -11,6 +11,10 @@ type adjacentMatrixGraph struct {
 	verticesCount int
 }
 
+func (a adjacentMatrixGraph) GetNumberOfVertices() int {
+	return a.verticesCount
+}
+
 func (a adjacentMatrixGraph) AddEdge(v1, v2 int) error {
 	if v1 >= a.verticesCount || v1 < 0 || v2 >= a.verticesCount || v2 < 0 {
 		return fmt.Errorf("not valid vertices")
@@ -41,15 +45,30 @@ func (a adjacentMatrixGraph) GetAdjacentVertices(vertex int) ([]int, error) {
 
 func NewAdjacentMatrixGraph(graphType Type, verticesCount int) Graph {
 	matrix := make([][]int, verticesCount, verticesCount)
-	//for i := 0; i < verticesCount; i++ {
-	//	for j := 0; j < verticesCount; j++ {
-	//		matrix[i][j] = 0
-	//	}
-	//}
+	for i := 0; i < verticesCount; i++ {
+		for j := 0; j < verticesCount; j++ {
+			matrix[i] = append(matrix[i], 0)
+		}
+	}
 
 	return &adjacentMatrixGraph{
 		matrix:        matrix,
 		graphType:     graphType,
 		verticesCount: verticesCount,
 	}
+}
+
+func (a adjacentMatrixGraph) GetIndegree(v int) (int, error) {
+	indegree := 0
+	if v < 0 || v >= len(a.matrix) {
+		return indegree, fmt.Errorf("invalid vertex")
+	}
+
+	for i := 0; i < a.verticesCount; i++ {
+		if a.matrix[i][v] == 1 {
+			indegree++
+		}
+	}
+
+	return indegree, nil
 }

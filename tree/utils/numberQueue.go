@@ -5,23 +5,25 @@ import (
 )
 
 type IntQueue struct {
-	values *list.List
+	*list.List
 }
 
 func NewIntegerQueue() IntQueue {
-	return IntQueue{values: list.New()}
+	return IntQueue{
+		list.New(),
+	}
 }
 
-func (i IntQueue) Enqueue(value int) {
-	i.values.PushBack(value)
+func (i *IntQueue) Enqueue(value int) {
+	i.PushBack(value)
 }
 
-func (i IntQueue) Dequeue() int {
-	front := i.values.Front()
-	i.values.Remove(front)
+func (i *IntQueue) Dequeue() int {
+	front := i.Front()
+	i.Remove(front)
 	return front.Value.(int)
 }
 
-func (i IntQueue) IsEmpty() bool {
-	return i.values.Len() == 0
+func (i *IntQueue) IsEmpty() bool {
+	return i.Len() == 0
 }
