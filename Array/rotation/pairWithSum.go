@@ -17,7 +17,7 @@ func exitsPairWithSum(arr []int, sum int) bool {
 		}
 
 		if pairSum > sum {
-			high = (high-1 + len(arr)) % len(arr)
+			high = (high - 1 + len(arr)) % len(arr)
 		}
 	}
 
