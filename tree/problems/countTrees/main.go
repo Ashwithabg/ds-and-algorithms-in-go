@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 /*
- For the key values 1...numKeys, how many structurally unique
+ For the key values 1...numKeys, how many structurally uniqueChars
  binary search trees are possible that store those keys.
  Strategy: consider that each value could be the root.
  Recursively find the size of the left and right subtrees.
