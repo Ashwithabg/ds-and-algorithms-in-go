@@ -16,22 +16,14 @@ func sortAndGetElement(arr []int, k int) int {
 
 func getMinElementUsingMaxheap(arr []int, k int) int {
 	maxHeap := &maxHeap{}
-	for i := 0; i <= k; i++ {
+	for i := 0; i < len(arr); i++ {
 		maxHeap.Push(arr[i])
-	}
-	heap.Init(maxHeap)
-
-	counter := k + 1
-	for maxHeap.Len() == k+1 {
-		maxHeap.Pop()
-		if counter != len(arr) {
-			maxHeap.Push(arr[counter])
-			counter++
-		}
-
 		heap.Init(maxHeap)
+
+		if maxHeap.Len() == k+1 {
+			maxHeap.Pop()
+		}
 	}
 
-	pop := maxHeap.Pop()
-	return pop.(int)
+	return maxHeap.Pop().(int)
 }
