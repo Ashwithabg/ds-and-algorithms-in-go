@@ -26,9 +26,10 @@ func getMinElementUsingMaxheap(arr []int, k int) int {
 		maxHeap.Pop()
 		if counter != len(arr) {
 			maxHeap.Push(arr[counter])
-			heap.Init(maxHeap)
 			counter++
 		}
+
+		heap.Init(maxHeap)
 	}
 
 	pop := maxHeap.Pop()
